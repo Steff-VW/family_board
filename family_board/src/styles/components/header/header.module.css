@@ -1,0 +1,17 @@
+.container {
+    background-color: lightskyblue;
+    border: 5px groove grey;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+}
+
+.titleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}   
