@@ -20,6 +20,7 @@ const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
   if (!repsonse.ok) {
     throw new Error("Login failed. Please check your credentials.");
   }   
+    window.location.href = "/";
     } catch (error: any) {
         setError(error.message || "An unexpected error occurred. Please try again later.");
     }
