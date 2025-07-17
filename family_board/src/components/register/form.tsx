@@ -13,7 +13,7 @@ const submitForm  = async (e: FormEvent<HTMLFormElement>) => {
   if( password !== confirmPassword) {
     throw new Error("Passwords do not match.");
   }
-    const response = await fetch("https://localhost:7279/login/register", {
+    const response = await fetch("https://localhost:7279/auth/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -32,7 +32,7 @@ const submitForm  = async (e: FormEvent<HTMLFormElement>) => {
   }
 }
 
-    return(
+return(
   <div>
     {error && <h2 className={styles.error}>{error}</h2>}
     <form className={styles.container} onSubmit={submitForm}>

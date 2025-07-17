@@ -9,7 +9,7 @@ const [error, setError] = useState<string | null>(null);
 const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
     try {
-    const repsonse = await fetch("https://localhost:7279/login", {
+    const repsonse = await fetch("https://localhost:7279/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

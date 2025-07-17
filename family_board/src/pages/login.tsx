@@ -5,9 +5,13 @@ import Link from "next/link";
 const Login = () => {
     return(
         <div className={styles.container}>
-            <h1>Login</h1>
-            <LoginForm />   
-            <Link href="/register">Register</Link>
+            <div className={styles.loginContainer}>
+                <h1>Login</h1>
+                <LoginForm />   
+                <Link href="/register" className={styles.register}>
+                    <button className={styles.registerButton}>Register</button>
+                </Link>
+            </div>
         </div>
     )
 }

@@ -6,4 +6,32 @@
     height: 100vh;
     gap: 2rem;
     background-color: lightskyblue;
+    color: white;
 }
+
+.loginContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    border: 3px solid white;
+    padding: 5rem;
+    border-radius: 50px;
+}
+
+.registerButton {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: skyblue;
+    border: 3px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.register{
+    text-decoration: none;
+    color: white;
+}
+

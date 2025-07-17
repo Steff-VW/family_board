@@ -6,9 +6,13 @@ const Login = () => {
 
 return (
     <div className={styles.container}>
-      <h1>Create account</h1>
-      <Form />
-      <Link href="/login">Login</Link>
+      <div className={styles.registerContainer}>
+        <h1>Create account</h1>
+        <Form />
+          <Link href="/login" className={styles.login}>
+          <button className={styles.loginButton}>Login</button>
+          </Link>  
+      </div>
     </div>
   );
 }
