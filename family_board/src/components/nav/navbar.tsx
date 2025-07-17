@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styles from '../../styles/components/nav/nav.module.css';
 
 const NavBar = () => {
@@ -5,9 +6,9 @@ const NavBar = () => {
         <div>
             <nav>
                 <ul className={styles.listContainer}>
-                    <li><a href="/">Board</a></li>
-                    <li><a href="/about">Tasks</a></li>
-                    <li><a href="/contact">Grocery List</a></li>
+                    <li><Link href="/">Board</Link></li>
+                    <li><Link href="/about">Tasks</Link></li>
+                    <li><Link href="/contact">Grocery List</Link></li>
                 </ul>
             </nav>
         </div>
