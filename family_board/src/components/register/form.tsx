@@ -4,11 +4,15 @@ import styles from "@/styles/components/register/form.module.css";
 const RegisterForm = () => {
 const [username, setUsername] = useState<string>("");
 const [password, setPassword] = useState<string>("");
+const [confirmPassword, setConfirmPassword] = useState<string>("");
 const [error, setError] = useState<string | null>(null);
 
 const submitForm  = async (e: FormEvent<HTMLFormElement>) => {
   e.preventDefault();
   try {
+  if( password !== confirmPassword) {
+    throw new Error("Passwords do not match.");
+  }
     const response = await fetch("https://localhost:7279/login/register", {
     method: "POST",
     headers: {
@@ -34,6 +38,7 @@ const submitForm  = async (e: FormEvent<HTMLFormElement>) => {
     <form className={styles.container} onSubmit={submitForm}>
         <input value={username} onChange={u => setUsername(u.target.value)} type="text" placeholder="Username" className={styles.textField}  required />
         <input value={password} onChange={p => setPassword(p.target.value)} type="password" placeholder="Password" className={styles.textField} required />
+        <input value={confirmPassword} onChange={u => setConfirmPassword(u.target.value)} type="password" placeholder="Confirm Password" className={styles.textField} required />
         <button type="submit" className={styles.button}>Register</button>
       </form>
     </div>
