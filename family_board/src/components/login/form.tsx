@@ -15,7 +15,7 @@ const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify({ username, password })
+    body: JSON.stringify({ username, password }),
   })
   if (!repsonse.ok) {
     throw new Error("Login failed. Please check your credentials.");

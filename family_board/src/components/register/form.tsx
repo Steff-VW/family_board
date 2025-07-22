@@ -5,6 +5,10 @@ const RegisterForm = () => {
 const [username, setUsername] = useState<string>("");
 const [password, setPassword] = useState<string>("");
 const [confirmPassword, setConfirmPassword] = useState<string>("");
+const [email, setEmail] = useState<string>("");
+const [firstName, setfirstName] = useState<string>("");
+const [lastName, setLastName] = useState<string>("");
+const [dateOfBirth, setDateOfBirth] = useState<string>("");
 const [error, setError] = useState<string | null>(null);
 
 const submitForm  = async (e: FormEvent<HTMLFormElement>) => {
@@ -19,7 +23,7 @@ const submitForm  = async (e: FormEvent<HTMLFormElement>) => {
       "Content-Type": "application/json"
     },
     credentials: "include",
-    body: JSON.stringify({ username, password })
+    body: JSON.stringify({ username, password, email, firstName, lastName, dateOfBirth })
   });
   if (!response.ok) {
     const errorData = await response.json();
@@ -37,6 +41,10 @@ return(
     {error && <h2 className={styles.error}>{error}</h2>}
     <form className={styles.container} onSubmit={submitForm}>
         <input value={username} onChange={u => setUsername(u.target.value)} type="text" placeholder="Username" className={styles.textField}  required />
+        <input value={firstName} onChange={f => setfirstName(f.target.value)} type="text" placeholder="First Name" className={styles.textField} required />
+        <input value={lastName} onChange={l => setLastName(l.target.value)} type="text" placeholder="Last Name" className={styles.textField} required />
+        <input value={email} onChange={e => setEmail(e.target.value)} type="email" placeholder="Email" className={styles.textField} required />
+        <input value={dateOfBirth} onChange={d => setDateOfBirth(d.target.value)} type="date" placeholder="Date of Birth" className={styles.textField} required />
         <input value={password} onChange={p => setPassword(p.target.value)} type="password" placeholder="Password" className={styles.textField} required />
         <input value={confirmPassword} onChange={u => setConfirmPassword(u.target.value)} type="password" placeholder="Confirm Password" className={styles.textField} required />
         <button type="submit" className={styles.button}>Register</button>
