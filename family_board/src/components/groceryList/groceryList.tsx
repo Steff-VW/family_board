@@ -1,19 +1,19 @@
+import GroceryItem from "@/interfaces/groceryItem";
 
 type groceryListProps = {
-    list: string[];
-    setList: (list: string[]) => void;
+    list: GroceryItem[];
+    removeItem: (index: number) => void;
 }
 
-const groceryList = ({list, setList}: groceryListProps) => {
+const GroceryList = ({list, removeItem}: groceryListProps) => {
     return (
          <div>
             <ul>
             {list.map((groceryItem, index) => (
                 <li key={index}>
-                {groceryItem}
+                {groceryItem.amount} {groceryItem.item}
                 <button onClick={() => {
-                    const newList = list.filter((_, i) => i !== index);
-                    setList(newList);
+                    removeItem(index);
                 }}>-</button>
                 </li>
             ))}
@@ -22,4 +22,4 @@ const groceryList = ({list, setList}: groceryListProps) => {
     )
 }
 
-export default groceryList;
+export default GroceryList;
