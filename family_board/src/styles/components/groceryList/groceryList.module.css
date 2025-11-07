@@ -4,3 +4,22 @@
     align-items: center;
     padding: 20px;
 }
+
+.listContainer {
+    padding: 0;
+}
+
+.listContainer li {
+    margin: 5px 0;
+    font-size: 18px;
+}
+
+.listContainer li button {
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 0, 0, 0.466);
+    width: 25px;
+    height: 25px;
+    background-color: white;
+}

@@ -1,5 +1,5 @@
 export default interface GroceryItem {
-  id?: number;
+  id: number;
   amount: number;
   item: string;
 }

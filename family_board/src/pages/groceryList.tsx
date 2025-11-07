@@ -2,14 +2,16 @@ import GroceryForm from "@/components/groceryList/groceryForm";
 import GroceryList from "@/components/groceryList/groceryList";
 import Header from "@/components/header/header";
 import GroceryItem from "@/interfaces/groceryItem";
+import GroceryItemResponse from "@/interfaces/groceryItemResponse";
 import styles from "@/styles/components/groceryList/groceryList.module.css";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const Groceries = () => {
-    const [list, setList] = useState<GroceryItem[]>([]);
+    const [list, setList] = useState<GroceryItemResponse>({message: "", items: []});
     const [item, setItem] = useState<string>("");
-    const [amount, setAmount] = useState<number>(0);
+    const [amount, setAmount] = useState<number>(1);
     const [error, setError] = useState<string | null>(null);
+    const [open, setOpen] = useState<boolean>(false);
 
         const getGroceryList = async () => {
         try {
@@ -47,7 +49,7 @@ const Groceries = () => {
                 }
                 await getGroceryList();
                 setItem("");
-                setAmount(0);
+                setAmount(1);
                 setError(null);
             }
         } catch (error: any) {
@@ -55,8 +57,12 @@ const Groceries = () => {
         }
     }
 
+const toggleDialog = () => {
+    setOpen(prevOpen => !prevOpen);
+}
+
     const removeItem = async (index: number) => {
-        const itemToRemove = list[index]
+        const itemToRemove = list.items[index]
         try {
             const response = await fetch(`https://localhost:7279/grocery/remove/${itemToRemove.id}`, {
                 method: "DELETE",
@@ -67,9 +73,9 @@ const Groceries = () => {
             if (!response.ok) {
                 throw new Error("Failed to remove the item from the grocery list.");
             }
-            const newList = list.filter((_, i) => i !== index);
+            const newList = list.items.filter((_, i) => i !== index);
             await getGroceryList()
-            setList(newList);
+            setList({message: list.message, items: newList});
             setError(null);
         } catch (error:any) {
             setError(error.message || "An unexpected error occurred while removing the item. Please try again later.");
@@ -80,14 +86,14 @@ const Groceries = () => {
         getGroceryList();
     }, []);
 
-    if(list.length === 0) {
+    if(list.items.length === 0) {
         return(
             <div>
                 <Header />
                 <div className={styles.container}>
                     {error && <h2 className={styles.error}>{error}</h2>}
-                    <h1>No items in your grocery list.</h1>
-                    <GroceryForm setItem={setItem} setAmount={setAmount} item={item} amount={amount} addItem={addItem}/>
+                    {list.message && <h2>{list.message}</h2>}
+                    <GroceryForm setItem={setItem} setAmount={setAmount} item={item} amount={amount} addItem={addItem} toggleDialog={toggleDialog} open={open}/>
                 </div>
             </div>
         )
@@ -98,10 +104,10 @@ const Groceries = () => {
             <Header />
             <div className={styles.container}>
                 {error && <h2 className={styles.error}>{error}</h2>}
-                    <h1>Grocery List</h1>    
+                    {list.message && <h2>{list.message}</h2>}
                     <GroceryList list={list} removeItem={removeItem}/>
                 <div>
-                    <GroceryForm setItem={setItem} setAmount={setAmount} item={item} amount={amount} addItem={addItem}/>
+                    <GroceryForm setItem={setItem} setAmount={setAmount} item={item} amount={amount} addItem={addItem} toggleDialog={toggleDialog} open={open}/>
                 </div>
             </div>
         </div>
