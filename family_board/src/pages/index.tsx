@@ -1,11 +1,19 @@
 import Header from '@/components/header/header'
 import Link from 'next/link';
+import Calendar, { CalendarProps } from 'react-calendar';
 import { useEffect, useState } from 'react';
 import styles from '@/styles/components/home/home.module.css';
+import 'react-calendar/dist/Calendar.css';
+import EventForm from '@/components/home/eventForm';
+
 
 const Home = () => {
 const [loggedIn, setLoggedIn] = useState(false);
 const [loading, setLoading] = useState(true);
+const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+const [events, setEvents] = useState<{ [key: string]: string[] }>({});
+const [newEventText, setNewEventText] = useState('');
+
 
 const checkLogin = async () => {
   var response = await fetch("https://localhost:7279/CheckLogin",{
@@ -20,6 +28,24 @@ const checkLogin = async () => {
   setLoading(false);
 }
 
+  const handleDateChange: CalendarProps['onChange'] = (value) => {
+    if (value instanceof Date) {
+      setSelectedDate(value);
+    } else if (Array.isArray(value)) {
+      setSelectedDate(value[0]);
+    } else {
+      setSelectedDate(null);
+    }
+  };
+
+  const addEvent = () => {
+    const eventKey = selectedDate?.toDateString() || '';
+    setEvents((prev) => ({
+      ...prev,
+      [eventKey]: [...(prev[eventKey] || []), newEventText],
+    }));
+  }
+
 useEffect(() => {
   checkLogin();
 }, []);
@@ -32,6 +58,19 @@ if (loading) {
       return (
       <div>
         <Header />
+        <div>
+          <Calendar onChange={handleDateChange} value={selectedDate}/>
+          <EventForm addEvent={addEvent} newEventText={newEventText} setNewEventText={setNewEventText}/>
+            {selectedDate && 
+            <div>
+              <h2>Events for {selectedDate.toDateString()}:</h2>
+              <ul>
+                {(events[selectedDate.toDateString()] || []).map((event, index) => (
+                  <li key={index}>{event}</li>
+                ))}
+              </ul>
+            </div>}
+        </div>
       </div>
     );
   } else {
