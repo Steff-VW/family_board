@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Story+Script&display=swap');
+
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    text-align: center;
 }
 
 .listContainer {
@@ -12,14 +15,37 @@
 .listContainer li {
     margin: 5px 0;
     font-size: 18px;
+    list-style-type: none;
+    transition: opacity 0.5s ease-out;
+}
+
+.listContainer li.removing {
+    opacity: 0;
 }
 
 .listContainer li button {
     margin-left: 10px;
+    border: none;
     cursor: pointer;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 0, 0, 0.466);
-    width: 25px;
-    height: 25px;
-    background-color: white;
 }
+
+.error {
+    border: 2px solid red;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #ffe6e6;
+}
+
+.groceryList {
+  width: 500px;
+  background: #fff395;
+  padding: 20px;
+  border: 2px solid #d8d2c4;
+  border-radius: 4px;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: "Story Script", sans-serif;
+}
+
+
+

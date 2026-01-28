@@ -1,4 +1,14 @@
 html, body {
   margin: 0;
   padding: 0;
+  font-family: "Chewy", system-ui;
+  background: linear-gradient(135deg, #bbdefb 0%, #e3f2fd 50%, #ffffff 100%);
+  min-height: 100vh;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
 }

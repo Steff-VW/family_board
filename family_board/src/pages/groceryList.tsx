@@ -1,7 +1,6 @@
 import GroceryForm from "@/components/groceryList/groceryForm";
 import GroceryList from "@/components/groceryList/groceryList";
 import Header from "@/components/header/header";
-import GroceryItem from "@/interfaces/groceryItem";
 import GroceryItemResponse from "@/interfaces/groceryItemResponse";
 import styles from "@/styles/components/groceryList/groceryList.module.css";
 import { useEffect, useState } from "react";
@@ -11,7 +10,6 @@ const Groceries = () => {
     const [item, setItem] = useState<string>("");
     const [amount, setAmount] = useState<number>(1);
     const [error, setError] = useState<string | null>(null);
-    const [open, setOpen] = useState<boolean>(false);
 
         const getGroceryList = async () => {
         try {
@@ -55,10 +53,6 @@ const Groceries = () => {
         }
     }
 
-const toggleDialog = () => {
-    setOpen(prevOpen => !prevOpen);
-}
-
     const removeItem = async (index: number) => {
         const itemToRemove = list.items[index]
         try {
@@ -80,18 +74,14 @@ const toggleDialog = () => {
 
     useEffect(() => {
         getGroceryList();
-    });
+    }, []);
 
     return (
         <div>
             <Header />
             <div className={styles.container}>
                 {error && <h2 className={styles.error}>{error}</h2>}
-                <h2>{list.items.length !== 0 ? `${list.items.length} items` : "No items in the list"}</h2>
-                    <GroceryList list={list} removeItem={removeItem}/>
-                <div>
-                    <GroceryForm setItem={setItem} setAmount={setAmount} item={item} amount={amount} addItem={addItem} toggleDialog={toggleDialog} open={open}/>
-                </div>
+                <GroceryList list={list} removeItem={removeItem} setAmount={setAmount} setItem={setItem} addItem={addItem} item={item} amount={amount}/>
             </div>
         </div>
     );

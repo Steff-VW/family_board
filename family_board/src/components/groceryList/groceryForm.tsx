@@ -7,18 +7,11 @@ type GroceryListProps = {
     amount: number;
     item: string;
     addItem: (e: React.FormEvent<HTMLFormElement>) => void;
-    toggleDialog: () => void;
-    open: boolean;
 }
 
-const GroceryForm = ({setAmount, setItem, addItem, item, amount, toggleDialog , open}: GroceryListProps) => {
+const GroceryForm = ({setAmount, setItem, addItem, item, amount}: GroceryListProps) => {
     return(
         <div>
-            <div className={styles.buttonContainer}>
-                {open? <button onClick={toggleDialog}>Close</button>
-                : <button onClick={toggleDialog}>Add</button>}
-            </div>
-            {open?
              <form onSubmit={addItem} className={styles.container}>
                 <div className={styles.inputs}>
                     <input value={amount} min={1} type="number" name="" id="" placeholder="Amount" onChange={e => setAmount(parseInt(e.target.value))}/>
@@ -26,7 +19,6 @@ const GroceryForm = ({setAmount, setItem, addItem, item, amount, toggleDialog , 
                     <button> + </button>
                 </div>
             </form>
-            : null}
         </div>
     )
 }
