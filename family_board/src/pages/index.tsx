@@ -16,8 +16,7 @@ const [newEventText, setNewEventText] = useState('');
 
 
 const checkLogin = async () => {
-  var response = await fetch("https://localhost:7279/CheckLogin",{
-    method: "GET",
+  var response = await fetch("https://localhost:7279/Auth/me",{
     credentials: "include"
   });
   if (!response.ok) {

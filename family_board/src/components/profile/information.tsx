@@ -9,10 +9,6 @@ const [formated, setFormated] = useState<string>("");
 const getInformation = async () => {
     try {
         const response = await fetch("https://localhost:7279/profile/information", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        },
         credentials: "include"
         })
         if(!response.ok){
@@ -27,7 +23,7 @@ const getInformation = async () => {
 }
 
 useEffect(() => {
-getInformation();    
+    getInformation();    
 }, []);
 
 useEffect(() => {

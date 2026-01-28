@@ -7,7 +7,7 @@ const NavBar = () => {
             <nav>
                 <ul className={styles.listContainer}>
                     <li><Link href="/">Board</Link></li>
-                    <li><Link href="/about">Tasks</Link></li>
+                    <li><Link href="/tasks">Tasks</Link></li>
                     <li><Link href="/groceryList">Grocery List</Link></li>
                 </ul>
             </nav>

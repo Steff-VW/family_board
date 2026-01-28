@@ -21,13 +21,11 @@ const Groceries = () => {
                     "Content-Type": "application/json"
                 },});
             if (!response.ok) {
-                throw new Error("Failed to fetch the grocery list.");
+                throw new Error(await response.text());
             }
-            else {
-                const data = await response.json();
-                setList(data);
-                setError(null);
-            }
+            const data = await response.json();
+            setList(data);
+            setError(null);
         } catch (error: any) {
             setError(error.message || "An unexpected error occurred while fetching the grocery list. Please try again later.");
         }
@@ -45,7 +43,7 @@ const Groceries = () => {
                     body: JSON.stringify({item: item, amount: amount})
                 });
                 if (!response.ok) {
-                    throw new Error("Failed to update the grocery list.");
+                    throw new Error(await response.text());
                 }
                 await getGroceryList();
                 setItem("");
@@ -71,11 +69,9 @@ const toggleDialog = () => {
                 },
             })
             if (!response.ok) {
-                throw new Error("Failed to remove the item from the grocery list.");
+                throw new Error(await response.text());
             }
-            const newList = list.items.filter((_, i) => i !== index);
             await getGroceryList()
-            setList({message: list.message, items: newList});
             setError(null);
         } catch (error:any) {
             setError(error.message || "An unexpected error occurred while removing the item. Please try again later.");
@@ -84,27 +80,14 @@ const toggleDialog = () => {
 
     useEffect(() => {
         getGroceryList();
-    }, []);
-
-    if(list.items.length === 0) {
-        return(
-            <div>
-                <Header />
-                <div className={styles.container}>
-                    {error && <h2 className={styles.error}>{error}</h2>}
-                    {list.message && <h2>{list.message}</h2>}
-                    <GroceryForm setItem={setItem} setAmount={setAmount} item={item} amount={amount} addItem={addItem} toggleDialog={toggleDialog} open={open}/>
-                </div>
-            </div>
-        )
-    }
+    });
 
     return (
         <div>
             <Header />
             <div className={styles.container}>
                 {error && <h2 className={styles.error}>{error}</h2>}
-                    {list.message && <h2>{list.message}</h2>}
+                <h2>{list.items.length !== 0 ? `${list.items.length} items` : "No items in the list"}</h2>
                     <GroceryList list={list} removeItem={removeItem}/>
                 <div>
                     <GroceryForm setItem={setItem} setAmount={setAmount} item={item} amount={amount} addItem={addItem} toggleDialog={toggleDialog} open={open}/>
